@@ -8,10 +8,8 @@ public class Blob {
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
         Blob fileHash = new Blob();
-        
         //Use filepath not the filename
-        System.out.println(fileHash.sha1Code("testfile.txt"));
-
+        System.out.println(fileHash.sha1Code("/Users/benjaminham/Desktop/Blobtester.txt"));
     }
 
 
@@ -41,4 +39,9 @@ public class Blob {
         }
         return sb.toString();
     }
+    
+  /*  public static String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }*/
 }
