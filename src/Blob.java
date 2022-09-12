@@ -1,27 +1,49 @@
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
+import java.nio.file.Files;
 import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.io.*;
+import java.util.*;
 
 public class Blob {
+	
+	private String SHA1="";
+	private String filePath;
+	
+	public Blob(String filePath) throws IOException, NoSuchAlgorithmException {
+		SHA1 = sha1Code (filePath);
+		File f = new File(filePath);
+		Scanner sc = new Scanner(f);
+		FileWriter fw = new FileWriter("./Test/objects/"+ SHA1);
+		PrintWriter pw = new PrintWriter (fw);
+		while(sc.hasNextLine()) {
+	        String s = sc.nextLine();
+	        pw.write(s);
+	    	}
+			if(sc != null) {
+				sc.close();  
+			}
+			if(pw != null) {
+				pw.flush();
+				pw.close();
+			}
+	}
+	
+	public String getSha1() {
+		return SHA1;
+	}
+	
 
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-        Blob fileHash = new Blob();
-        //Use filepath not the filename
-        System.out.println(fileHash.sha1Code("/Users/benjaminham/Desktop/Blobtester.txt"));
-    }
-
-
-    public String sha1Code(String filePath) throws IOException, NoSuchAlgorithmException {
+    public static String sha1Code(String filePath) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
         FileInputStream fileInputStream = new FileInputStream(filePath);
         MessageDigest digest = MessageDigest.getInstance("SHA-1");
         DigestInputStream digestInputStream = new DigestInputStream(fileInputStream, digest);
         byte[] bytes = new byte[1024];
-        // read all file content
         while (digestInputStream.read(bytes) > 0);
-
-//        digest = digestInputStream.getMessageDigest();
         byte[] resultByteArry = digest.digest();
         return bytesToHexString(resultByteArry);
     }
@@ -31,8 +53,6 @@ public class Blob {
         for (byte b : bytes) {
             int value = b & 0xFF;
             if (value < 16) {
-                // if value less than 16, then it's hex String will be only
-                // one character, so we need to append a character of '0'
                 sb.append("0");
             }
             sb.append(Integer.toHexString(value).toUpperCase());
@@ -40,8 +60,15 @@ public class Blob {
         return sb.toString();
     }
     
-  /*  public static String readFile(String path, Charset encoding) throws IOException {
+    public static String readFile(String path, Charset encoding) throws IOException {
         byte[] encoded = Files.readAllBytes(Paths.get(path));
         return new String(encoded, encoding);
-    }*/
+    }
+    
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
+        Blob blob = new Blob("./Test/foo.txt");
+        System.out.println(blob.sha1Code("./Test/foo.txt")); 
+    }
+    
+    
 }
