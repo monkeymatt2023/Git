@@ -30,7 +30,7 @@ public class Blob {
 			if(pw != null) {
 				pw.flush();
 				pw.close();
-			}
+		}
 	}
 	
 	public String getSha1() {
