@@ -19,12 +19,7 @@ public class Commit {
 		pTree = p;
 		this.date = getDate();
 		fileName = sha1(s, getDate(), a, pointer);
-		if (pointer == null) {
-			parent = null;
-		}
-		else {
-			parent = pointer;
-		}
+		parent = pointer;
 		child = null;
 		writeFile();
 	}
