@@ -47,14 +47,23 @@ public class Commit {
 		int mYear = c.get(Calendar.YEAR);
 		int mMonth = c.get(Calendar.MONTH);
 		int mDay = c.get(Calendar.DAY_OF_MONTH);
-		date = mYear +"/"+ mMonth +"/"+ mDay;
+		date = mMonth +"/"+ mDay +"/"+ mYear;
 		return date;
 	}
 	
 	public void writeFile() throws FileNotFoundException {
 		File f = new File(fileName);
 		PrintWriter p = new PrintWriter("Test/objects/"+ f);
-		p.append(fileName + "\n");
+		if (pTree == null) {
+			pTree = "";
+		}
+		if(parent == null) {
+			parent = "";
+		}
+		if(child == null) {
+			child = "";
+		}
+		p.append(pTree + "\n");
 		p.append(parent + "\n");
 		p.append(child + "\n");
 		p.append(author + "\n");
