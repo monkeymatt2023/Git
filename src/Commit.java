@@ -74,7 +74,7 @@ public class Commit {
 	
 
 	
-	public static void main(String[]args) throws NoSuchAlgorithmException, IOException {
+//	public static void main(String[]args) throws NoSuchAlgorithmException, IOException {
 //		ArrayList <String> arr = new ArrayList <String>();
 //		arr.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
 //		arr.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
@@ -83,9 +83,9 @@ public class Commit {
 //		arr.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
 //		Tree tree1 = new Tree(arr);
 //		File file = new File("objects/dd4840f48a74c1f97437b515101c66834b59b1be");
-		Commit com = new Commit("Test/objects/36dbe7dab0f9aac93d48ee3cb8ef00ef1c510720","hello","benji",null); 
-	
-	}
+//		Commit com = new Commit("Test/objects/36dbe7dab0f9aac93d48ee3cb8ef00ef1c510720","hello","benji",null); 
+//	
+//	}
 	
 	
 	

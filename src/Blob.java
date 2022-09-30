@@ -65,10 +65,10 @@ public class Blob {
         return new String(encoded, encoding);
     }
     
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
-        Blob blob = new Blob("./Test/foo.txt");
-        System.out.println(blob.sha1Code("./Test/foo.txt")); 
-    }
+//    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
+//        Blob blob = new Blob("./Test/foo.txt");
+//        System.out.println(blob.sha1Code("./Test/foo.txt")); 
+//    }
     
     
 }

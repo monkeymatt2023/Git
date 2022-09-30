@@ -15,7 +15,7 @@ class Benjitester {
 	@BeforeAll
 	static void setUpBeforeClass() throws IOException{
 		File f = new File("Test/objects");
-		f.mkdir();
+		f.mkdirs();
 		
 		Path p = Paths.get("Test/junit.txt");
         try {
@@ -24,32 +24,32 @@ class Benjitester {
             e.printStackTrace();
         }
 	}
-	@AfterAll
 	
-	static void tearDownAfterClass() throws IOException{
-		File f1 = new File("junit.txt");
-		f1.delete();
-		File f1hash = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
-		f1hash.delete();
-		
-		File f2 = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
-		f2.delete();
-		
-		File f3 = new File("Test/index.txt");
-		f3.delete();
-		
-		File f4 = new File("Test/objects");
-		deleteDir(f4);
-	}
-	
-	static void deleteDir(File file) {
-	    File[] contents = file.listFiles();
-	    if (contents != null) {
-	        for (File f : contents)
-	            deleteDir(f);
-	    }
-	    file.delete();
-	}
+//	@AfterAll
+//	static void tearDownAfterClass() throws IOException{
+//		File f1 = new File("Test/junit.txt");
+//		f1.delete();
+//		File f1hash = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
+//		f1hash.delete();
+//		
+//		File f2 = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
+//		f2.delete();
+//		
+//		File f3 = new File("Test/index.txt");
+//		f3.delete();
+//		
+//		File f4 = new File("Test/objects");
+//		deleteDir(f4);
+//	}
+//	
+//	static void deleteDir(File file) {
+//	    File[] contents = file.listFiles();
+//	    if (contents != null) {
+//	        for (File f : contents)
+//	            deleteDir(f);
+//	    }
+//	    file.delete();
+//	}
 
 	@Test
 	void testInit() throws IOException {
@@ -74,6 +74,7 @@ class Benjitester {
 	@Test
 	void testAdd() throws IOException, NoSuchAlgorithmException {
 		Index i = new Index();
+		i.initialize();
 		i.add("junit.txt");
 		File file = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
 		assertTrue(file.exists());
@@ -83,7 +84,8 @@ class Benjitester {
 	@Test
 	void testRemove() throws NoSuchAlgorithmException, IOException {
 		Index i = new Index();
-		i.remove("Test/junit.txt");
+		i.initialize();
+		i.remove("junit.txt");
 		File file = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
 		assertTrue(file.exists());
 	}
@@ -98,13 +100,12 @@ class Benjitester {
 		listy.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
 		File file = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
 		Tree tree = new Tree(listy);
-		//assertTrue(file.exists());
-		Scanner s = new Scanner(file);
-		assertTrue(s.nextLine().equals("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f"));
-		assertTrue(s.nextLine().equals("blob : 01d82591292494afd1602d175e165f94992f6f5f"));
-		assertTrue(s.nextLine().equals("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83"));
-		assertTrue(s.nextLine().equals("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b"));
-		assertTrue(s.nextLine().equals("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976"));
+	}
+	
+	@Test
+	void testCommit() throws FileNotFoundException {
+		Commit comParent = new Commit("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be","stuff","benji",null);
+
 	}
 
 }

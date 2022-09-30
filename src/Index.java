@@ -15,7 +15,7 @@ public class Index {
 	
 	public void initialize() throws FileNotFoundException, IOException{
 		File theDir = new File("Test/objects");
-		if (!theDir.exists()){
+		if (theDir.exists()){
 		    theDir.mkdirs();
 		}
 		Path p = Paths.get("Test");
@@ -60,13 +60,13 @@ public class Index {
         }
 	}
 	
-	public static void main(String[] args) throws FileNotFoundException, IOException, NoSuchAlgorithmException{
-		Index ind = new Index();
-		ind.initialize();
-		ind.add("foo.txt");
-		//ind.add("foobar.txt");
-		//ind.add("bar.txt");
-		ind.remove("foo.txt");
-		
-	}   
+//	public static void main(String[] args) throws FileNotFoundException, IOException, NoSuchAlgorithmException{
+//		Index ind = new Index();
+//		ind.initialize();
+//		ind.add("foo.txt");
+//		ind.add("foobar.txt");
+//		ind.add("bar.txt");
+//		ind.remove("foo.txt");
+//		
+//	}   
 }
