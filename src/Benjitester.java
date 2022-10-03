@@ -53,15 +53,15 @@ class Benjitester {
 //		File f5 = new File("Test/objects");
 //		deleteDir(f5);
 //	}
-	
-	static void deleteDir(File file) {
-	    File[] contents = file.listFiles();
-	    if (contents != null) {
-	        for (File f : contents)
-	            deleteDir(f);
-	    }
-	    file.delete();
-	}
+//	
+//	static void deleteDir(File file) {
+//	    File[] contents = file.listFiles();
+//	    if (contents != null) {
+//	        for (File f : contents)
+//	            deleteDir(f);
+//	    }
+//	    file.delete();
+//	}
 
 	@Test
 	void testInit() throws IOException {

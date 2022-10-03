@@ -22,7 +22,7 @@ public class Blob {
 		PrintWriter pw = new PrintWriter (fw);
 		while(sc.hasNextLine()) {
 	        String s = sc.nextLine();
-	        pw.write(s);
+	        pw.write(s); 
 	    	}
 			if(sc != null) {
 				sc.close();  
@@ -69,6 +69,5 @@ public class Blob {
 //        Blob blob = new Blob("./Test/foo.txt");
 //        System.out.println(blob.sha1Code("./Test/foo.txt")); 
 //    }
-    
     
 }

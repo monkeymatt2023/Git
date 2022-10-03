@@ -28,7 +28,7 @@ public class Commit {
 	public Tree createTree() throws NoSuchAlgorithmException, IOException {
 		ArrayList<String> list = new ArrayList<String>();
 		if (parent != null) {
-			Scanner input = new Scanner("Test/objects" + parent);
+			Scanner input = new Scanner("Test/objects/" + parent);
 			String line = input.nextLine();
 			list.add("tree : " + line.substring(13));
 			input.close();

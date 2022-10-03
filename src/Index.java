@@ -40,8 +40,14 @@ public class Index {
 		writeToFile(filename);
 	}
 	
-	public void writeToFile (String filename) {
+	public void writeToFile (String filename) throws FileNotFoundException {
 		File file = new File("Test/index.txt");
+		
+//		PrintWriter pw = new PrintWriter(file);
+//		for (String s : map.keySet())
+//			pw.append(s + ": " + map.get(s) + "\n");
+//		pw.close();
+		
 	    BufferedWriter bf = null;
         try {
             bf = new BufferedWriter(new FileWriter(file));
