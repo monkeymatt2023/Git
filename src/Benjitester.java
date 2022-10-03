@@ -92,20 +92,20 @@ class Benjitester {
 	
 	@Test
 	void testTree() throws NoSuchAlgorithmException, IOException {
-		ArrayList <String> listy = new ArrayList<String>();
-		listy.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f");
-		listy.add("blob : 01d82591292494afd1602d175e165f94992f6f5f");
-		listy.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83");
-		listy.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b");
-		listy.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976");
+		ArrayList <String> list = new ArrayList<String>();
+		list.add("blob : 81e0268c84067377a0a1fdfb5cc996c93f6dcf9f filename1.txt");
+		list.add("blob : 01d82591292494afd1602d175e165f94992f6f5f someOtherFile.jpg");
+		list.add("blob : f1d82236ab908c86ed095023b1d2e6ddf78a6d83 anotherFileWhichDoesntExist.txt");
+		list.add("tree : bd1ccec139dead5ee0d8c3a0499b42a7d43ac44b file4.txt");
+		list.add("tree : e7d79898d3342fd15daf6ec36f4cb095b52fd976 makeupThisName.txt");
 		File file = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
-		Tree tree = new Tree(listy);
+		Tree tree = new Tree(list);
 	}
 	
 	@Test
-	void testCommit() throws FileNotFoundException {
-		Commit comParent = new Commit("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be","stuff","benji",null);
-
+	void testCommit() throws NoSuchAlgorithmException, IOException {
+		Commit comParent = new Commit("something", "matthew", null);
+		Commit comChild = new Commit("stuff", "benji", comParent.getCommitName());
 	}
 
 }

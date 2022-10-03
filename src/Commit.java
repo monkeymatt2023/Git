@@ -10,18 +10,43 @@ public class Commit {
 	private String summary;
 	private String author;
 	private String date;
-	private String pTree;
 	private String fileName;
+	private Tree tree;
 	
-	public Commit(String p, String s, String a, String pointer) throws FileNotFoundException {
+	public Commit(String s, String a, String pointer) throws NoSuchAlgorithmException, IOException {
 		summary = s;
 		author = a;
-		pTree = p;
 		this.date = getDate();
 		fileName = sha1(s, getDate(), a, pointer);
 		parent = pointer;
 		child = null;
+		tree = createTree();
+		clearIndex();
 		writeFile();
+	}
+	
+	public Tree createTree() throws NoSuchAlgorithmException, IOException {
+		ArrayList<String> list = new ArrayList<String>();
+		if (parent != null) {
+			Scanner input = new Scanner("Test/objects" + parent);
+			String line = input.nextLine();
+			list.add("tree : " + line.substring(13));
+			input.close();
+		}
+		Scanner input2 = new Scanner("Test/index.txt");
+		while (input2.hasNext()) {
+			String line = input2.nextLine();
+			int indexSHA = line.indexOf(':')+1;
+			int indexFileName = line.indexOf(' ');
+			list.add("blob : " + line.substring(indexSHA) + line.substring(0,indexFileName));
+		}
+		input2.close();
+		return new Tree(list);
+	}
+	
+	public void clearIndex() throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter("Test/index.txt");
+		pw.close();
 	}
 	
 	public String sha1(String summary, String date, String author, String parent) {
@@ -51,25 +76,26 @@ public class Commit {
 		return date;
 	}
 	
-	public void writeFile() throws FileNotFoundException {
+	public void writeFile() throws NoSuchAlgorithmException, IOException {
 		File f = new File(fileName);
 		PrintWriter p = new PrintWriter("Test/objects/"+ f);
-		if (pTree == null) {
-			pTree = "";
-		}
 		if(parent == null) {
 			parent = "";
 		}
 		if(child == null) {
 			child = "";
 		}
-		p.append(pTree + "\n");
+		p.append(tree.filename() + "\n");
 		p.append(parent + "\n");
 		p.append(child + "\n");
 		p.append(author + "\n");
 		p.append(date + "\n");
 		p.append(summary + "\n");
 		p.close();
+	}
+	
+	public String getCommitName() {
+		return sha1(summary, date, author, parent);
 	}
 	
 
