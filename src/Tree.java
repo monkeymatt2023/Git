@@ -20,9 +20,11 @@ public class Tree {
 	
 	public String listToString() {
 		String temp = "";
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size()-1; i++) {
 			temp+= list.get(i) + "\n";
 		}
+		temp += list.get(list.size()-1);
+//		System.out.println(temp);
 		return temp;
 	}
 	
@@ -47,7 +49,7 @@ public class Tree {
 
 	 
 	 public void writeToFile (String filename) throws NoSuchAlgorithmException, FileNotFoundException, IOException {
-			File file = new File("Test/objects/" + sha1Code(s));
+			File file = new File("Test/objects/" + s);
 		    BufferedWriter bf = null;
 	        try {
 	            bf = new BufferedWriter(new FileWriter(file));

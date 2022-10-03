@@ -10,22 +10,23 @@ public class Commit {
 	private String summary;
 	private String author;
 	private String date;
-	private String fileName;
+	private String commitName;
+	private String treeName;
 	private Tree tree;
 	
 	public Commit(String s, String a, String pointer) throws NoSuchAlgorithmException, IOException {
 		summary = s;
 		author = a;
 		this.date = getDate();
-		fileName = sha1(s, getDate(), a, pointer);
+		commitName = sha1(s, getDate(), a, pointer);
 		parent = pointer;
 		child = null;
-		tree = createTree();
+		createTree();
 //		clearIndex();
 		writeFile();
 	}
 	
-	public Tree createTree() throws NoSuchAlgorithmException, IOException {
+	public void createTree() throws NoSuchAlgorithmException, IOException {
 		ArrayList<String> list = new ArrayList<String>();
 		File f = new File("Test/objects/" + parent);
 		if (parent != null) {
@@ -38,14 +39,16 @@ public class Commit {
 		Scanner input2 = new Scanner(f2);
 		while (input2.hasNext()) {
 			String line = input2.nextLine();
-			System.out.println(line);
+//			System.out.println(line);
 			int indexSHA = line.indexOf(':')+1;
 			int indexFileName = line.indexOf(':');
-			System.out.println(indexSHA + " " + indexFileName);
+//			System.out.println(indexSHA + " " + indexFileName);
 			list.add("blob : " + line.substring(indexSHA) + " " + line.substring(0,indexFileName));
 		}
 		input2.close();
-		return new Tree(list);
+		tree = new Tree(list);
+		treeName = tree.filename();
+		System.out.println(tree.filename());
 	}
 	
 	public void clearIndex() throws FileNotFoundException {
@@ -81,7 +84,7 @@ public class Commit {
 	}
 	
 	public void writeFile() throws NoSuchAlgorithmException, IOException {
-		File f = new File(fileName);
+		File f = new File(commitName);
 		PrintWriter p = new PrintWriter("Test/objects/"+ f);
 		if(parent == null) {
 			parent = "";
@@ -89,7 +92,7 @@ public class Commit {
 		if(child == null) {
 			child = "";
 		}
-		p.append(tree.filename() + "\n");
+		p.append(treeName + "\n");
 		p.append(parent + "\n");
 		p.append(child + "\n");
 		p.append(author + "\n");
