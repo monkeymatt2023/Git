@@ -18,11 +18,11 @@ public class Commit {
 		summary = s;
 		author = a;
 		this.date = getDate();
-		commitName = sha1(s, getDate(), a, pointer);
+		commitName = sha1();
 		parent = pointer;
 		child = null;
 		createTree();
-//		clearIndex();
+		clearIndex();
 		writeFile();
 	}
 	
@@ -30,9 +30,10 @@ public class Commit {
 		ArrayList<String> list = new ArrayList<String>();
 		File f = new File("Test/objects/" + parent);
 		if (parent != null) {
+//			System.out.println(parent);
 			Scanner input = new Scanner(f);
 			String line = input.nextLine();
-			list.add("tree : " + line.substring(13));
+			list.add("tree : " + line);
 			input.close();
 		}
 		File f2 = new File("Test/index");
@@ -48,7 +49,7 @@ public class Commit {
 		input2.close();
 		tree = new Tree(list);
 		treeName = tree.filename();
-		System.out.println(tree.filename());
+//		System.out.println(tree.filename());
 	}
 	
 	public void clearIndex() throws FileNotFoundException {
@@ -56,12 +57,14 @@ public class Commit {
 		pw.close();
 	}
 	
-	public String sha1(String summary, String date, String author, String parent) {
+	public String sha1() {
 		String value = "";
-		value += summary;
-		value += date;
-		value += author;
-		value += parent;
+		value += treeName + "\n";
+		value += parent + "\n";
+		value += child + "\n";
+		value += author + "\n";
+		value += date + "\n";
+		value += summary + "\n";
 		String sha1 = "";
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-1");
@@ -73,6 +76,24 @@ public class Commit {
 		}
 		return sha1;
 	}
+	
+//	public String sha1(String summary, String date, String author, String parent) {
+//		String value = "";
+//		value += summary;
+//		value += date;
+//		value += author;
+//		value += parent;
+//		String sha1 = "";
+//		try {
+//			MessageDigest digest = MessageDigest.getInstance("SHA-1");
+//	        digest.reset();
+//	        digest.update(value.getBytes("utf8"));
+//	        sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+//		} catch (Exception e){
+//			e.printStackTrace();
+//		}
+//		return sha1;
+//	}
 	
 	public String getDate() {
 		Calendar c = Calendar.getInstance();
@@ -102,7 +123,7 @@ public class Commit {
 	}
 	
 	public String getCommitName() {
-		return sha1(summary, date, author, parent);
+		return commitName;
 	}
 	
 

@@ -117,7 +117,7 @@ class Benjitester {
 	@Test
 	void testCommit() throws NoSuchAlgorithmException, IOException {
 		Commit comParent = new Commit("something", "matthew", null);
-		Commit comChild = new Commit("stuff", "benji", "Test/objects/" + comParent.getCommitName());
+		Commit comChild = new Commit("stuff", "benji", comParent.getCommitName());
 	}
 
 }
