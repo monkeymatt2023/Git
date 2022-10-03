@@ -1,5 +1,6 @@
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -15,29 +16,48 @@ public class Blob {
 	private String filePath;
 	
 	public Blob(String filePath) throws IOException, NoSuchAlgorithmException {
-		SHA1 = sha1Code (filePath);
+		SHA1 = sha1Code(filePath);
 		File f = new File(filePath);
 		Scanner sc = new Scanner(f);
 		FileWriter fw = new FileWriter("Test/objects/"+ SHA1);
 		PrintWriter pw = new PrintWriter (fw);
 		while(sc.hasNextLine()) {
 	        String s = sc.nextLine();
-	        pw.write(s); 
-	    	}
-			if(sc != null) {
-				sc.close();  
-			}
-			if(pw != null) {
-				pw.flush();
-				pw.close();
-		}
+	        pw.append(s); 
+	    }
+		
+//		if(sc != null) {
+//			sc.close();  
+//		}
+//		if(pw != null) {
+//			pw.flush();
+//			pw.close();
+//		}
+		sc.close();
+		pw.close();
+		
+//		String output = "";
+//		
+//		try {
+//			File f = new File(filePath);
+//			Scanner input = new Scanner(f);
+//			while (input.hasNextLine())
+//				output += input.nextLine();
+//			input.close();
+//		}
+//		catch (FileNotFoundException exception) {
+//			exception.printStackTrace();
+//		}
+//		
+//		PrintWriter pw = new PrintWriter(new File("Test/objects/" + sha1Code(output)));
+//		pw.append(output);
+//		pw.close();
 	}
 	
 	public String getSha1() {
 		return SHA1;
 	}
 	
-
     public static String sha1Code(String filePath) throws IOException, NoSuchAlgorithmException, FileNotFoundException {
         FileInputStream fileInputStream = new FileInputStream(filePath);
         MessageDigest digest = MessageDigest.getInstance("SHA-1");

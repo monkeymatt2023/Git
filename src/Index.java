@@ -15,22 +15,19 @@ public class Index {
 	
 	public void initialize() throws FileNotFoundException, IOException{
 		File theDir = new File("Test/objects");
-		if (theDir.exists()){
+		if (!theDir.exists()){
 		    theDir.mkdirs();
 		}
 		Path p = Paths.get("Test");
-		File index = new File(p + "/index.txt");
+		File index = new File(p + "/index");
 		index.createNewFile();
     }
 	
 	
 	public void add(String filename) throws IOException, NoSuchAlgorithmException{
-		File f = new File("Test/" + filename);
-		if (f.exists()) {
-			Blob blob = new Blob("Test/" + filename);
-			map.put(filename, blob.getSha1());
-			writeToFile(filename);
-		}
+		Blob blob = new Blob("Test/" + filename);
+		map.put(filename, blob.getSha1());
+		writeToFile(filename);
 	}
 	
 	public void remove(String filename)throws IOException, FileNotFoundException {
@@ -41,32 +38,32 @@ public class Index {
 	}
 	
 	public void writeToFile (String filename) throws FileNotFoundException {
-		File file = new File("Test/index.txt");
+		File file = new File("Test/index");
 		
-//		PrintWriter pw = new PrintWriter(file);
-//		for (String s : map.keySet())
-//			pw.append(s + ": " + map.get(s) + "\n");
-//		pw.close();
+		PrintWriter pw = new PrintWriter(file);
+		for (String s : map.keySet())
+			pw.append(s + ": " + map.get(s) + "\n");
+		pw.close();
 		
-	    BufferedWriter bf = null;
-        try {
-            bf = new BufferedWriter(new FileWriter(file));
-            for (Map.Entry<String, String> entry : map.entrySet()) {
-                bf.write(entry.getKey() + ":" + entry.getValue());
-                bf.newLine();
-            }
-              bf.flush();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            try {
-                bf.close();
-            }
-            catch (Exception e) {
-            }
-        }
+//	    BufferedWriter bf = null;
+//        try {
+//            bf = new BufferedWriter(new FileWriter(file));
+//            for (Map.Entry<String, String> entry : map.entrySet()) {
+//                bf.write(entry.getKey() + ":" + entry.getValue());
+//                bf.newLine();
+//            }
+//              bf.flush();
+//        }
+//        catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        finally {
+//            try {
+//                bf.close();
+//            }
+//            catch (Exception e) {
+//            }
+//        }
 	}
 	
 //	public static void main(String[] args) throws FileNotFoundException, IOException, NoSuchAlgorithmException{

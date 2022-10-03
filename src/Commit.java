@@ -27,25 +27,29 @@ public class Commit {
 	
 	public Tree createTree() throws NoSuchAlgorithmException, IOException {
 		ArrayList<String> list = new ArrayList<String>();
+		File f = new File("Test/objects/" + parent);
 		if (parent != null) {
-			Scanner input = new Scanner("Test/objects/" + parent);
+			Scanner input = new Scanner(f);
 			String line = input.nextLine();
 			list.add("tree : " + line.substring(13));
 			input.close();
 		}
-		Scanner input2 = new Scanner("Test/index.txt");
+		File f2 = new File("Test/index");
+		Scanner input2 = new Scanner(f2);
 		while (input2.hasNext()) {
 			String line = input2.nextLine();
+			System.out.println(line);
 			int indexSHA = line.indexOf(':')+1;
-			int indexFileName = line.indexOf(' ');
-			list.add("blob : " + line.substring(indexSHA) + line.substring(0,indexFileName));
+			int indexFileName = line.indexOf(':');
+			System.out.println(indexSHA + " " + indexFileName);
+			list.add("blob : " + line.substring(indexSHA) + " " + line.substring(0,indexFileName));
 		}
 		input2.close();
 		return new Tree(list);
 	}
 	
 	public void clearIndex() throws FileNotFoundException {
-		PrintWriter pw = new PrintWriter("Test/index.txt");
+		PrintWriter pw = new PrintWriter("Test/index");
 		pw.close();
 	}
 	
