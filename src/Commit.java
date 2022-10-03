@@ -21,7 +21,7 @@ public class Commit {
 		parent = pointer;
 		child = null;
 		tree = createTree();
-		clearIndex();
+//		clearIndex();
 		writeFile();
 	}
 	

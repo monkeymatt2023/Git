@@ -23,6 +23,13 @@ class Benjitester {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        Path p2 = Paths.get("Test/something.txt");
+        try {
+            Files.writeString(p, "something", StandardCharsets.ISO_8859_1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
 	
 //	@AfterAll
@@ -32,24 +39,29 @@ class Benjitester {
 //		File f1hash = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
 //		f1hash.delete();
 //		
-//		File f2 = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
+//		File f2 = new File("Test/junit.txt");
+//		f1.delete();
+//		File f2hash = new File("Test/objects/1af17e73721dbe0c40011b82ed4bb1a7dbe3ce29");
+//		f1hash.delete();
+//		
+//		File f3 = new File("Test/objects/dd4840f48a74c1f97437b515101c66834b59b1be");
 //		f2.delete();
 //		
-//		File f3 = new File("Test/index.txt");
-//		f3.delete();
+//		File f4 = new File("Test/index.txt");
+//		f4.delete();
 //		
-//		File f4 = new File("Test/objects");
-//		deleteDir(f4);
+//		File f5 = new File("Test/objects");
+//		deleteDir(f5);
 //	}
-//	
-//	static void deleteDir(File file) {
-//	    File[] contents = file.listFiles();
-//	    if (contents != null) {
-//	        for (File f : contents)
-//	            deleteDir(f);
-//	    }
-//	    file.delete();
-//	}
+	
+	static void deleteDir(File file) {
+	    File[] contents = file.listFiles();
+	    if (contents != null) {
+	        for (File f : contents)
+	            deleteDir(f);
+	    }
+	    file.delete();
+	}
 
 	@Test
 	void testInit() throws IOException {
@@ -75,8 +87,8 @@ class Benjitester {
 	void testAdd() throws IOException, NoSuchAlgorithmException {
 		Index i = new Index();
 		i.initialize();
-		i.add("junit.txt");
-		File file = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
+		i.add("something.txt");
+		File file = new File("Test/objects/1af17e73721dbe0c40011b82ed4bb1a7dbe3ce29");
 		assertTrue(file.exists());
 	}
 	
@@ -85,8 +97,8 @@ class Benjitester {
 	void testRemove() throws NoSuchAlgorithmException, IOException {
 		Index i = new Index();
 		i.initialize();
-		i.remove("junit.txt");
-		File file = new File("Test/objects/b34bcfc4d490f93ed9cf4e560c608b58cd688c24");
+		i.remove("something.txt");
+		File file = new File("Test/objects/1af17e73721dbe0c40011b82ed4bb1a7dbe3ce29");
 		assertTrue(file.exists());
 	}
 	

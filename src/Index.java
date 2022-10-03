@@ -25,9 +25,12 @@ public class Index {
 	
 	
 	public void add(String filename) throws IOException, NoSuchAlgorithmException{
-		Blob blob = new Blob("Test/" + filename);
-		map.put(filename, blob.getSha1());
-		writeToFile(filename);
+		File f = new File("Test/" + filename);
+		if (f.exists()) {
+			Blob blob = new Blob("Test/" + filename);
+			map.put(filename, blob.getSha1());
+			writeToFile(filename);
+		}
 	}
 	
 	public void remove(String filename)throws IOException, FileNotFoundException {

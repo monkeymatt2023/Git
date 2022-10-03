@@ -18,7 +18,7 @@ public class Blob {
 		SHA1 = sha1Code (filePath);
 		File f = new File(filePath);
 		Scanner sc = new Scanner(f);
-		FileWriter fw = new FileWriter("./Test/objects/"+ SHA1);
+		FileWriter fw = new FileWriter("Test/objects/"+ SHA1);
 		PrintWriter pw = new PrintWriter (fw);
 		while(sc.hasNextLine()) {
 	        String s = sc.nextLine();
