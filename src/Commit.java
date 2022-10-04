@@ -18,12 +18,29 @@ public class Commit {
 		summary = s;
 		author = a;
 		this.date = getDate();
-		commitName = sha1();
 		parent = pointer;
 		child = null;
+		
 		createTree();
 		clearIndex();
+		commitName = sha1();
+		File f = new File("Test/objects/head");
+		if (!f.exists())
+			createHead();
+		updateHead();
 		writeFile();
+	}
+	
+	public void createHead() throws FileNotFoundException {
+		File f = new File("Test/objects/head");
+		updateHead();
+	}
+	
+	public void updateHead() throws FileNotFoundException {
+		PrintWriter pw = new PrintWriter(new File("Test/objects/head"));
+		pw.append(commitName);
+		System.out.println(sha1());
+		pw.close();
 	}
 	
 	public void createTree() throws NoSuchAlgorithmException, IOException {
@@ -135,7 +152,7 @@ public class Commit {
 	
 	public void setChild(String parent, String child) throws IOException {
 		File f = new File("Test/objects/" + parent);
-		System.out.println(f.exists());
+//		System.out.println(f.exists());
 		Scanner input = new Scanner(f);
 		String tree = input.nextLine() + "\n";
 		String par = input.nextLine() + "\n";
