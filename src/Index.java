@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 public class Index {
 	
 	private String filename;
-	private HashMap <String, String> map;
+	private static HashMap <String, String> map;
 	
 	public Index() throws IOException {
 		map = new HashMap <String, String>();
@@ -64,6 +64,10 @@ public class Index {
 //            catch (Exception e) {
 //            }
 //        }
+	}
+	
+	public static void clearMap() {
+		map = new HashMap <String, String>();
 	}
 	
 //	public static void main(String[] args) throws FileNotFoundException, IOException, NoSuchAlgorithmException{

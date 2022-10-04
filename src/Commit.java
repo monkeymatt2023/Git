@@ -55,6 +55,7 @@ public class Commit {
 	public void clearIndex() throws FileNotFoundException {
 		PrintWriter pw = new PrintWriter("Test/index");
 		pw.close();
+		Index.clearMap();
 	}
 	
 	public String sha1() {
