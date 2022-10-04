@@ -107,15 +107,21 @@ public class Commit {
 	public void writeFile() throws NoSuchAlgorithmException, IOException {
 		File f = new File(commitName);
 		PrintWriter p = new PrintWriter("Test/objects/"+ f);
-		if(parent == null) {
-			parent = "";
-		}
-		if(child == null) {
-			child = "";
-		}
-		p.append(treeName + "\n");
-		p.append(parent + "\n");
-		p.append(child + "\n");
+//		if(parent == null) {
+//			parent = "";
+//		}
+//		if(child == null) {
+//			child = "";
+//		}
+		p.append("objects/" + treeName + "\n");
+		if (parent != null)
+			p.append("objects/" + parent + "\n");
+		else
+			p.append("\n");
+		if (child != null)
+			p.append("objects/" + child + "\n");
+		else
+			p.append("\n");
 		p.append(author + "\n");
 		p.append(date + "\n");
 		p.append(summary + "\n");
@@ -126,6 +132,9 @@ public class Commit {
 		return commitName;
 	}
 	
+	public void setChild(Commit child) {
+		this.child = child.getCommitName();
+	}
 
 	
 //	public static void main(String[]args) throws NoSuchAlgorithmException, IOException {
