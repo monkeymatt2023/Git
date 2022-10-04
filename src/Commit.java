@@ -41,7 +41,7 @@ public class Commit {
 		while (input2.hasNext()) {
 			String line = input2.nextLine();
 //			System.out.println(line);
-			int indexSHA = line.indexOf(':')+1;
+			int indexSHA = line.indexOf(':')+2;
 			int indexFileName = line.indexOf(':');
 //			System.out.println(indexSHA + " " + indexFileName);
 			list.add("blob : " + line.substring(indexSHA) + " " + line.substring(0,indexFileName));
@@ -117,11 +117,11 @@ public class Commit {
 		if (parent != null)
 			p.append("objects/" + parent + "\n");
 		else
-			p.append("\n");
+			p.append("null" + "\n");
 		if (child != null)
 			p.append("objects/" + child + "\n");
 		else
-			p.append("\n");
+			p.append("null" + "\n");
 		p.append(author + "\n");
 		p.append(date + "\n");
 		p.append(summary + "\n");
@@ -132,8 +132,19 @@ public class Commit {
 		return commitName;
 	}
 	
-	public void setChild(Commit child) {
-		this.child = child.getCommitName();
+	public void setChild(String parent, String child) throws IOException {
+		File f = new File("Test/objects/" + parent);
+		System.out.println(f.exists());
+		Scanner input = new Scanner(f);
+		String tree = input.nextLine() + "\n";
+		String par = input.nextLine() + "\n";
+		input.nextLine();
+		String auth = input.nextLine() + "\n";
+		String date = input.nextLine() + "\n";
+		String summ = input.nextLine() + "\n";
+		PrintWriter pw = new PrintWriter(f);
+		pw.append(tree + par + "objects/" + child + "\n" + auth + date + summ);
+		pw.close();
 	}
 
 	
